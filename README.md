@@ -11,4 +11,8 @@ A Django server to managing the verification of constituents, publishing of repr
 - Docker
 - JWT
 
+### Join the Community
+- [Discord server](https://discord.gg/ZyCfgAQ6)
+- [Twitter]()
+
 Happy hacking with you!
