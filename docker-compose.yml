@@ -4,9 +4,9 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_DB: recallserver
-      POSTGRES_USER: comon
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${DATABASE_NAME} #or recallserver
+      POSTGRES_USER: ${DATABASE_USER} #or comon
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD} #password
     volumes:
       - npgdata:/var/lib/postgresql/data
     ports:
