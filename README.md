@@ -110,7 +110,7 @@ Access the server at `http://localhost:8000`.
 
 ### API Documentation
 
-API documentation is available at `http://localhost:8000/api/docs/` (configure as needed).
+API documentation is available at `http://localhost:8000/api/docs/`.
 
 ## Contributing
 
