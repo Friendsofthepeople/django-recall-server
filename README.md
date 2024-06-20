@@ -174,9 +174,9 @@ We adhere to the Contributor Covenant Code of Conduct. Please read [CODE_OF_COND
 ### TODO
 
 - Register a voter to People's Gavel and assign them a tokenized ID.
-- Ability to create admins and agents.
+- Ability to create admins.
 - Ability to publish a representative's profile, docket, responsibilities, and duties.
-- Ability to raise a call to recall them backed by law.
+- Ability to raise a call to recall them.
   
 *** Note TODO section outlines the specific tasks contributors can work on to enhance the functionality of the project. ***
 
