@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 
-
-class AppuserConfig(AppConfig):
+class VotersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'appUser'
+    name = 'voter'
