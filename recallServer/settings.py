@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'pollingStation',
+    'diaspora',
+    'county',
+    'appUser',
 
     
 ]
@@ -89,16 +93,6 @@ WSGI_APPLICATION = 'recallServer.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'recallserver',
-#         'USER': 'comon',
-#         'PASSWORD': 'password',
-#         'HOST': 'db',
-#         'PORT': 5432,
-#     }
-# }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
