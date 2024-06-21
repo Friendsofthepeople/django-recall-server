@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'diaspora',
     'county',
     'voter',
+    'mps',
     
     
     'django.contrib.admin',
