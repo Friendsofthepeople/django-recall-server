@@ -12,7 +12,6 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 
 INSTALLED_APPS = [
     # Local apps goes here
-    'api',
     'pollingStation',
     'diaspora',
     'county',
