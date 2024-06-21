@@ -1,1 +1,0 @@
-# TODO add serializers for the models in the models.py file 
