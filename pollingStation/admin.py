@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from pollingStation.models import PollingStation
+
+
+admin.site.register(PollingStation)
