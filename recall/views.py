@@ -7,7 +7,6 @@ from .serializers import RecallSerializer
 
 class RecallCreateView(APIView):
     # permission_classes = [IsAuthenticated]
-
     def get(self, request):
         recalls = Recall.objects.all()
         serializer = RecallSerializer(recalls, many=True)
