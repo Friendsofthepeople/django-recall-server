@@ -1,4 +1,4 @@
-# LinksHub Contributing Guidelines
+# Django Recall Server Contributing Guidelines
 
 Thank you for taking the time to contribute to our project. Please take a moment to read the following guidelines before contributing:
 
