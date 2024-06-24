@@ -206,7 +206,7 @@ We came up with this chart so you can gauge the issue's difficulty and pick ones
 | `priority: high`:   | Making completely new feature                                               |
 
 ## 🙏 Thanks to all Contributors
-Thanks a lot for spending your time in helping daily.dev grow. Thanks a lot! ❤️
+Thanks a lot for spending your time in helping Django Reacall Server grow. Thanks a lot! ❤️
  <a href = "https://github.com/Friendsofthepeople/django-recall-server/graphs/contributors"> <br />
    <img src="https://contrib.rocks/image?repo=Friendsofthepeople/django-recall-server" />
  </a>
