@@ -52,6 +52,12 @@ We are open to all kinds of contributions. If you want to:
 - [Discord server](https://discord.gg/ZyCfgAQ6)
 - [Twitter]()
 
+## 🙏 Thanks to all Contributors
+Thanks a lot for spending your time in helping daily.dev grow. Thanks a lot! ❤️
+ <a href = "https://github.com/Friendsofthepeople/django-recall-server/graphs/contributors"> <br />
+   <img src="https://contrib.rocks/image?repo=Friendsofthepeople/django-recall-server" />
+ </a>
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
