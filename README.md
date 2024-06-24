@@ -1,4 +1,4 @@
-# django-recall-server
+# Django Recall Server.
 
 A Django server for managing the verification of constituents, publishing of representative information, and signing to recall them.
 </br>
