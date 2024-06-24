@@ -32,6 +32,6 @@ urlpatterns = [
     path('api/voter/', include('voter.urls')),
     path('api/mps/', include('mps.urls')),
     path('api/recall/', include('recall.urls')),
-    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('docs/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
