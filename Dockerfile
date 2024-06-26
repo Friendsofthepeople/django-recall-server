@@ -9,9 +9,15 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 
 # Install dependencies
-COPY requirements.txt /code/
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements/prod.txt /code/requirements/prod.txt
+RUN pip install --no-cache-dir -r requirements/prod.txt
+
+RUN python manage.py collectstatic --noinput 
+
+EXPOSE 8000
 
 # Copy project
 COPY . /code/
+
+ENTRYPOINT ["./entrypoint.sh"]
 
