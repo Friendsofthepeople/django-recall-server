@@ -19,5 +19,7 @@ EXPOSE 8000
 # Copy project
 COPY . /code/
 
+RUN chmod +x /code/entrypoint.sh
+
 ENTRYPOINT ["./entrypoint.sh"]
 
