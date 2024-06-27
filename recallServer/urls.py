@@ -1,11 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
 
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -26,9 +21,6 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
     path('api/voter/', include('voter.urls')),
     path('api/mps/', include('mps.urls')),
     path('api/recall/', include('recall.urls')),
@@ -37,4 +29,8 @@ urlpatterns = [
     
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
+    path("auth/", include("djoser.urls.base")),
+    path("auth/", include("djoser.urls.authtoken")),
+    path("auth/", include("djoser.social.urls")),
+
 ]

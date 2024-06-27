@@ -13,6 +13,7 @@ CSRF_TRUSTED_ORIGINS = ['https://localhost:8000']
 
 INSTALLED_APPS = [
     # Local apps goes here
+    'users',
     'pollingStation',
     'diaspora',
     'county',
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg', #Swagger generator
     'djoser',
@@ -61,6 +63,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'recallServer.wsgi.application'
+
+AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -99,11 +103,11 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': '/password/reset/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '/username/reset/{uid}/{token}',
     'ACTIVATION_URL': '/activate/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': True,
+    # 'SEND_ACTIVATION_EMAIL': True,
     'USER_CREATE_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_RETYPE':True,
     'TOKEN_MODEL':None,
-    'SERIALIZERS': {},
+    # 'SERIALIZERS': {},
 }
 
 # Password validation
