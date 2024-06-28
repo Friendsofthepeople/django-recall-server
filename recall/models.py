@@ -11,6 +11,9 @@ class Recall(models.Model):
     recall_reasons = models.TextField()
     tokenized_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.recalled} recalled by {self.recaller}"
+
+# docker-compose exec web python manage.py migrate recall  
