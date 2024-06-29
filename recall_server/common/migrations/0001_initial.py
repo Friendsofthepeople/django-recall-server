@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('mps', '0001_initial'),
-        ('pollingStation', '0001_initial'),
+        ('polling_station', '0001_initial'),
     ]
 
     operations = [

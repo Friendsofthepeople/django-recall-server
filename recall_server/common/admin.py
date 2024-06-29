@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from county.models import County, Constituency
+from recall_server.county.models import County, Constituency
 
 
 admin.site.register(County)
