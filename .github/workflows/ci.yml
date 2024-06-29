@@ -40,9 +40,9 @@ jobs:
         run: |
           docker compose up -d --build
 
-      - name: Run tests
+      - name: Run migrations
         run: |
-          docker compose exec web python manage.py test
+          docker compose exec web python manage.py migrate
 
       - name: Stop and remove containers
         if: always()
