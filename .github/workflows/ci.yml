@@ -11,50 +11,45 @@ on:
       - main
 
 jobs:
-  lint_and_test:
-    environment:
-      name: ${{ github.ref_name }}
-
+  test:
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
         with:
-          python-version: "3.11"
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
-      - name: Create venv and activate
+      - name: Set up Docker Compose
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          sudo apt-get update
+          sudo apt-get install docker-compose-plugin
 
-      - name: Install dependencies
+      - name: Build and run containers
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements/test.txt
+          docker compose up -d --build
 
-      - name: Check code linting
+      - name: Wait for services to be ready
         run: |
-          flake8 .
+          while ! docker compose exec -T db pg_isready; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 5
+          done
 
       - name: Run tests
         run: |
-          pytest
+          docker compose exec -T app sh -c "python manage.py test"
+
+      - name: Stop and remove containers
+        if: always()
+        run: |
+          docker compose down
