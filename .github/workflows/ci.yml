@@ -40,16 +40,9 @@ jobs:
         run: |
           docker compose up -d --build
 
-      - name: Wait for services to be ready
-        run: |
-          while ! docker compose exec -T db pg_isready; do
-            echo "Waiting for PostgreSQL to be ready..."
-            sleep 5
-          done
-
       - name: Run tests
         run: |
-          docker compose exec -T app sh -c "python manage.py test"
+          docker compose exec web python manage.py test
 
       - name: Stop and remove containers
         if: always()
