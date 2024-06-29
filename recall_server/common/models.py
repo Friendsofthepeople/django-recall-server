@@ -1,8 +1,8 @@
 from django.db import models
 
 
-from mps.models import MemberOfParliament
-from pollingStation.models import PollingStation
+from recall_server.mps.models import MemberOfParliament
+from recall_server.polling_station.models import PollingStation
 
 
 class County(models.Model):
