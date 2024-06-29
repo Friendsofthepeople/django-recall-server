@@ -38,6 +38,7 @@ jobs:
 
       - name: Build and run containers
         run: |
+          docker-compose down -v
           docker-compose up -d --build
 
       - name: Run migrations
