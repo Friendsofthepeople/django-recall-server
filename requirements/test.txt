@@ -1,6 +1,6 @@
 -r prod.txt
 
-model-bakery==1.18.0
+model-bakery==1.18.2
 pytest==8.2.2
 pytest-cov==5.0.0
 pytest-django==4.8.0
