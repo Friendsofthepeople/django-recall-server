@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from county.models import County, Constituency
+
+
+admin.site.register(County)
+admin.site.register(Constituency)
