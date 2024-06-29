@@ -16,7 +16,7 @@ A Django server for managing the verification of constituents, publishing of rep
 
 > \[!IMPORTANT]
 >
-> Star us to show your support and love for djando recall server.⭐️
+> Star us to show your support and love for django recall server.⭐️
 
 <img src="assets/images/github-repo-star.png" alt="Django Reacall Server star banner" width="100%">
 
