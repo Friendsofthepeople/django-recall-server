@@ -9,10 +9,25 @@ on:
   pull_request:
     branches:
       - main
-
+  
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -38,11 +53,11 @@ jobs:
 
       - name: Build and run containers
         run: |
-          docker compose up -d --build
+          docker-compose up -d --build
 
       - name: Run migrations
         run: |
-          docker compose exec web python manage.py migrate
+          docker-compose exec web python manage.py migrate
 
       - name: Stop and remove containers
         if: always()
