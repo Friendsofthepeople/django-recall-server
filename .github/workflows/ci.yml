@@ -9,52 +9,39 @@ on:
   pull_request:
     branches:
       - main
-
+  
 jobs:
-  lint_and_test:
-    environment:
-      name: ${{ github.ref_name }}
-
+  test:
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
         with:
-          python-version: "3.11"
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
-      - name: Create venv and activate
+      - name: Install Docker Compose
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          sudo apt-get update
+          sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -Po '"tag_name": "\K.*?(?=")')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
 
-      - name: Install dependencies
+      - name: Build and run containers
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements/test.txt
+          docker-compose down -v
+          docker-compose up -d --build
 
-      - name: Check code linting
+      - name: Stop and remove containers
+        if: always()
         run: |
-          flake8 .
-
-      - name: Run tests
-        run: |
-          pytest
+          docker-compose down

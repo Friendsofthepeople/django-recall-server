@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('mps', '0001_initial'),
-        ('pollingStation', '0001_initial'),
+        ('polling_station', '0001_initial'),
     ]
 
     operations = [
@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=20, unique=True)),
                 ('registeredvoter_count', models.IntegerField(default=0)),
                 ('mp', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='constituencies', to='mps.memberofparliament')),
-                ('polling_station', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='constituencies', to='pollingStation.pollingstation')),
+                ('polling_station', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='constituencies', to='polling_station.pollingstation')),
             ],
         ),
     ]

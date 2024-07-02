@@ -49,7 +49,7 @@ Follow these steps to setup LinksHub on your local machine
    ```
 5. Install dependancies
    ```sh
-   pip install -r requirements.txt
+   pip install -r ./requirements/dev.txt
    ```
 
 6. Create your branch
