@@ -3,9 +3,9 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_DB: postgress #${DATABASE_NAME} #or recallserver
-      POSTGRES_USER: postgres #${DATABASE_USER} #or comon
-      POSTGRES_PASSWORD: postgres #${DATABASE_PASSWORD} #password
+      POSTGRES_DB:  ${DATABASE_NAME} #or recallserver
+      POSTGRES_USER:  ${DATABASE_USER} #or comon
+      POSTGRES_PASSWORD:  ${DATABASE_PASSWORD} #password
     volumes:
       - npgdata:/var/lib/postgresql/data
     ports:
@@ -13,7 +13,7 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn django_recall_server.config.wsgi:application --bind 0.0.0.0:8000 #python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
