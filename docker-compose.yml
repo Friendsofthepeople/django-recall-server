@@ -13,7 +13,7 @@ services:
 
   web:
     build: .
-    command: gunicorn django_recall_server.config.wsgi:application --bind 0.0.0.0:8000 #python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
