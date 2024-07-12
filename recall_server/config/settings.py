@@ -21,7 +21,6 @@ INSTALLED_APPS = [
     "recall_server.voter",
     "recall_server.mps",
     "recall_server.recall",
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -29,10 +28,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    'rest_framework_simplejwt',
+    "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "drf_yasg",  # Swagger generator
-    'djoser',
+    "djoser",
 ]
 
 MIDDLEWARE = [
@@ -105,17 +104,17 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
     # 'AUTH_HEADER_TYPES': ('Bearer',),
-    'AUTH_HEADER_TYPES': ('JWT',),
+    "AUTH_HEADER_TYPES": ("JWT",),
 }
 
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': '/password/reset/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': '/username/reset/{uid}/{token}',
-    'ACTIVATION_URL': '/activate/{uid}/{token}',
+    "PASSWORD_RESET_CONFIRM_URL": "/password/reset/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_URL": "/username/reset/{uid}/{token}",
+    "ACTIVATION_URL": "/activate/{uid}/{token}",
     # 'SEND_ACTIVATION_EMAIL': True,
-    'USER_CREATE_PASSWORD_RETYPE': True,
-    'PASSWORD_RESET_CONFIRM_RETYPE':True,
-    'TOKEN_MODEL':None,
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "TOKEN_MODEL": None,
     # 'SERIALIZERS': {},
 }
 

@@ -11,14 +11,8 @@ class CountyView(APIView):
         serializer = CountySerializer(data=request.data)
         if serializer.is_valid():
             county = serializer.save()
-            return Response(
-                    CountySerializer(county).data,
-                    status=HTTP_201_CREATED
-                    )
-        return Response(
-                serializer.errors,
-                status=HTTP_400_BAD_REQUEST
-                )
+            return Response(CountySerializer(county).data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
 class ConstituencyView(APIView):
@@ -27,10 +21,6 @@ class ConstituencyView(APIView):
         if serializer.is_valid():
             constituency = serializer.save()
             return Response(
-                    ConstituencySerializer(constituency).data,
-                    status=HTTP_201_CREATED
-                    )
-        return Response(
-                serializer.errors,
-                status=HTTP_400_BAD_REQUEST
-                )
+                ConstituencySerializer(constituency).data, status=HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
