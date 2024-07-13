@@ -1,4 +1,0 @@
-[flake8]
-max-line-length = 99
-exclude = .tox,.git,*/migrations/*,*/static/CACHE/*,venv
-ignore = I001, I005, W503, F401, E402

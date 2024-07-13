@@ -1,0 +1,74 @@
+# For comprehensive ruff settings
+# See: https://docs.astral.sh/ruff/settings
+
+# == Top-Level =================================================================
+
+# Support Python 3.10+.
+target-version = "py310"
+
+# Files to omit in addition to the standard set of exclusions.
+extend-exclude = [
+    "*.egg-info",
+    ".env",
+    ".envrc",
+    "*/migrations/*",
+    "venv",
+]
+
+# Default autofix behavior.
+fix = true
+
+# Recommended if using ruff in pre-commit.
+force-exclude = true
+
+respect-gitignore = true
+
+# Directories with source code.
+src = ["recal_server"]
+
+# == Linting ===================================================================
+
+[lint]
+# Add rules and plugins to the default enforced rule set.
+extend-select = [
+    "B",      # flake8-bugbear
+    "BLE",    # flake8-blind-except
+    "C4",     # flake8-comprehensions
+    "D",      # pydocstyle
+    "DJ",     # flake8-django
+    "DTZ",    # flake8-datetimez
+    "ERA001", # commented-out-code
+    "FBT",    # flake8-boolean-trap
+    "G",      # flake8-logging-format
+    "I",      # isort
+    "ISC",    # flake8-implicit-str-concat
+    "LOG",    # flake8-logging
+    "N",      # pep8-naming
+    "PT",     # flake8-pytest-style
+    "PTH",    # flake8-use-pathlib
+    "RUF100", # unused-noqa
+    "SIM",    # flake8-simplify
+    "T10",    # flake8-debugger
+    "T20",    # flake8-print
+    "TRY",    # tryceratops
+]
+
+ignore = [
+    "D102",   # undocumented-public-method
+    "D103",   # undocumented-public-function
+    "D104",   # undocumented-public-package
+    "D105",   # undocumented-magic-method
+    "D106",   # undocumented-public-nested-class
+    "D200",   # fits-on-one-line
+    "D212",   # multi-line-summary-first-line
+    "TRY003", # raise-vanilla-args
+]
+
+[lint.per-file-ignores]
+"manage.py" = ["EM101"]
+"apps.py" = ["D100", "D101"]
+
+# == Plugins ===================================================================
+
+[lint.pydocstyle]
+convention = "google"
