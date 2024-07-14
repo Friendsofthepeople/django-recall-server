@@ -1,22 +1,24 @@
+"""
+Custom views for the `pilling_station` Django app.
+"""
+
+from recall_server.polling_station.serializers import PollingStationSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from recall_server.polling_station.models import PollingStation
-from recall_server.polling_station.serializers import PollingStationSerializer
-
 
 class PollingStationView(APIView):
     """
-    Endpoint to add polling station
+    Endpoint to add polling station.
     """
 
     def post(self, request):
         serializer = PollingStationSerializer(data=request.data)
         if serializer.is_valid():
-            pollingStation = serializer.save()
+            polling_station = serializer.save()
             return Response(
-                PollingStationSerializer(pollingStation).data,
+                PollingStationSerializer(polling_station).data,
                 status=status.HTTP_201_CREATED,
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -1,5 +1,8 @@
-from django.urls import path
+"""
+URL config for the `voter` Django app.
+"""
 
+from django.urls import path
 from recall_server.voter.views import VoterRegisterView
 
 urlpatterns = [

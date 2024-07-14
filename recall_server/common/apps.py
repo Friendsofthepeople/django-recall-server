@@ -1,3 +1,7 @@
+"""
+Custom config settings for the `common` Django app.
+"""
+
 from django.apps import AppConfig
 
 

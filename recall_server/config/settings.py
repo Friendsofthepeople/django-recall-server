@@ -1,6 +1,15 @@
+"""
+Django settings for `recall_server` project.
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/5.0/ref/settings/
+"""
+
+from datetime import timedelta
 from pathlib import Path
-import os
-from decouple import config  # type: ignore
+
+import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,7 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -68,42 +77,25 @@ WSGI_APPLICATION = "recall_server.config.wsgi.application"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-        # 'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
     ),
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ),
 }
-import dj_database_url
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": config("DATABASE_NAME"),
-#         "USER": config("DATABASE_USER"),
-#         "PASSWORD": config("DATABASE_PASSWORD"),
-#         "HOST": config("DATABASE_HOST"),
-#         "PORT": config("DATABASE_PORT", default="5432"),
-#     }
-# }
+
+
 # Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
-    'default': dj_database_url.config(
+    "default": dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@0.0.0.0:5432/recallserverdb',
-        conn_max_age=600
+        default="postgresql://postgres:postgres@0.0.0.0:5432/recallserverdb",
+        conn_max_age=600,
     )
 }
 
-
-from datetime import timedelta
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
-    # 'AUTH_HEADER_TYPES': ('Bearer',),
     "AUTH_HEADER_TYPES": ("JWT",),
 }
 
@@ -111,11 +103,9 @@ DJOSER = {
     "PASSWORD_RESET_CONFIRM_URL": "/password/reset/{uid}/{token}",
     "USERNAME_RESET_CONFIRM_URL": "/username/reset/{uid}/{token}",
     "ACTIVATION_URL": "/activate/{uid}/{token}",
-    # 'SEND_ACTIVATION_EMAIL': True,
     "USER_CREATE_PASSWORD_RETYPE": True,
     "PASSWORD_RESET_CONFIRM_RETYPE": True,
     "TOKEN_MODEL": None,
-    # 'SERIALIZERS': {},
 }
 
 # Password validation
@@ -155,16 +145,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-# STATIC_ROOT = BASE_DIR /'staticfiles'
-# MEDIA_URL = BASE_DIR / 'media/'
 
 # This production code might break development mode, so we check whether we're in DEBUG mode
 if not DEBUG:
     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_ROOT = Path(BASE_DIR, "staticfiles")
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

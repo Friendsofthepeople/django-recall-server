@@ -1,11 +1,14 @@
-from rest_framework import serializers
+"""
+Model serializers for `common` Django app.
+"""
 
-from county.models import County, Constituency
+from county.models import Constituency, County
+from rest_framework import serializers
 
 
 class CountySerializer(serializers.ModelSerializer):
     """
-    Serializes a county to keep track of constituencies
+    Serializes a county to keep track of constituencies.
     """
 
     class Meta:
@@ -19,7 +22,7 @@ class CountySerializer(serializers.ModelSerializer):
 
 class ConstituencySerializer(serializers.ModelSerializer):
     """
-    Serializes a constituency to keep track of mp, polling station
+    Serializes a constituency to keep track of mp, polling station.
     """
 
     class Meta:

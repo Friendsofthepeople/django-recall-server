@@ -1,6 +1,7 @@
-import json
+"""
+Custom views for the `mps` Django app.
+"""
 
-from django.http import JsonResponse
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -11,6 +12,10 @@ from .serializers import MemberOfParliamentSerializer
 
 
 class MpRegisterView(APIView):
+    """
+    Custom, class-based API dispatcher for the `voter.Voter` model.
+    """
+
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -23,25 +28,10 @@ class MpRegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# class ImportDataView(APIView):
-#     def post(self, request):
-#         file_path = "/code/mps/mps.json"
-#         print(f"Importing data from {file_path}")
-#         with open(file_path, 'r') as file:
-#             data = json.load(file)
-#             print(f"Found {len(data)} MPs")
-#             # print(data)
-
-#         serializer = MemberOfParliamentSerializer(data=data, many=True)
-#         if serializer.is_valid():
-#             print(f"Validating {len(serializer.validated_data)} MPs")
-#             serializer.save()
-#             return JsonResponse({'message': 'Data imported successfully'}, status=201,
-# safe=False)
-#         return JsonResponse(serializer.errors, status=400, safe=False)
-
-
 class MpListView(generics.ListAPIView):
-    # permission_classes = [IsAuthenticated]
+    """
+    Custom, class-based API list view for the `voter.Voter` model.
+    """
+
     queryset = MemberOfParliament.objects.all()
     serializer_class = MemberOfParliamentSerializer

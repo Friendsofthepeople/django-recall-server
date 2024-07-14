@@ -1,13 +1,15 @@
+"""
+Custom Database models for the `common` Django app.
+"""
+
 from django.db import models
-
-
 from recall_server.mps.models import MemberOfParliament
 from recall_server.polling_station.models import PollingStation
 
 
 class County(models.Model):
     """
-    Keep track of county and number of constituencies
+    Keep track of county and number of constituencies.
     """
 
     name = models.CharField(unique=True, max_length=40)
@@ -19,7 +21,7 @@ class County(models.Model):
 
 class Constituency(models.Model):
     """
-    Keep track of constituency
+    Keep track of constituency.
     """
 
     name = models.CharField(unique=True, max_length=20)

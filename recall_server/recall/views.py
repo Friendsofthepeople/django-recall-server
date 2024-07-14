@@ -1,14 +1,20 @@
+"""
+Custom views for the `recall` Django app.
+"""
+
+from recall_server.recall.models import Recall
+from recall_server.recall.serializers import RecallSerializer
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from recall_server.recall.models import Recall
-from recall_server.recall.serializers import RecallSerializer
-
 
 class RecallCreateView(APIView):
-    # permission_classes = [IsAuthenticated]
+    """
+    Custom, class-based API dispatcher for the `recall.Recall` model.
+    """
+
     def get(self, request):
         recalls = Recall.objects.all()
         serializer = RecallSerializer(recalls, many=True)
@@ -23,6 +29,10 @@ class RecallCreateView(APIView):
 
 
 class RecallDetailView(APIView):
+    """
+    Custom, class-based API dispatcher for the `recall.Recall` model.
+    """
+
     permission_classes = [IsAuthenticated]
 
     def get_object(self, pk):
