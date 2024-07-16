@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import os
 from decouple import config  # type: ignore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -91,7 +91,7 @@ import dj_database_url
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@0.0.0.0:5432/recall_server',
+        default='postgresql://postgres:postgres@0.0.0.0:5432/recallserverdb',
         conn_max_age=600
     )
 }
