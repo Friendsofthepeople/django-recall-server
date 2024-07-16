@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
-CSRF_TRUSTED_ORIGINS = ["https://localhost:8000"]
+CSRF_TRUSTED_ORIGINS = ["https://localhost:8000", "127.0.0.1:8000"]
 
 # Application definition
 
@@ -76,17 +76,26 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.IsAuthenticated',
     # ),
 }
-
+import dj_database_url
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": config("DATABASE_NAME"),
+#         "USER": config("DATABASE_USER"),
+#         "PASSWORD": config("DATABASE_PASSWORD"),
+#         "HOST": config("DATABASE_HOST"),
+#         "PORT": config("DATABASE_PORT", default="5432"),
+#     }
+# }
+# Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DATABASE_NAME"),
-        "USER": config("DATABASE_USER"),
-        "PASSWORD": config("DATABASE_PASSWORD"),
-        "HOST": config("DATABASE_HOST"),
-        "PORT": config("DATABASE_PORT", default="5432"),
-    }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://postgres:postgres@0.0.0.0:5432/recall_server',
+        conn_max_age=600
+    )
 }
+
 
 from datetime import timedelta
 
