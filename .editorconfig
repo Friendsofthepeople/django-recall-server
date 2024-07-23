@@ -1,0 +1,51 @@
+# For an extensive list of configurations
+# See: https://editorconfig.org/
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 80
+trim_trailing_whitespace = true
+
+[*.{ini,py,py.tpl,rst}]
+indent_style = space
+indent_size = 4
+
+[*.{html,css,js}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = 80
+
+[*.{bat.tpl,Makefile,Makefile.tpl,mk}]
+indent_style = tab
+indent_size = 4
+
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+[*.{yml,yaml,json}]
+indent_style = space
+indent_size = 2
+
+[*.{bat,cmd,ps1}]
+end_of_line = crlf
+
+[*.{json,txt}]
+insert_final_newline = false
+
+[*.diff]
+trim_trailing_whitespace = false
+
+[.git/*]
+trim_trailing_whitespace = false
+
+[COMMIT_EDITMSG]
+max_line_length = 80

@@ -1,11 +1,16 @@
-import uuid
+"""
+Custom Database models for the `mps` Django app.
+"""
 
 from django.db import models
-
 from recall_server.common.mixins import OwnerlessAbstract
 
 
 class MemberOfParliament(OwnerlessAbstract):
+    """
+    Custom model to represent a parliament member for the `mps` Django app.
+    """
+
     name = models.CharField(max_length=200)
     image = models.URLField(
         max_length=200,

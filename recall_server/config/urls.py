@@ -1,9 +1,12 @@
+"""
+URL config for the `config` Django project.
+"""
+
 from django.contrib import admin
 from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -34,8 +37,8 @@ urlpatterns = [
         schema_view.with_ui("redoc", cache_timeout=0),
         name="schema-redoc",
     ),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
+    path("auth/", include("djoser.urls")),
+    path("auth/", include("djoser.urls.jwt")),
     path("auth/", include("djoser.urls.base")),
     path("auth/", include("djoser.urls.authtoken")),
     path("auth/", include("djoser.social.urls")),

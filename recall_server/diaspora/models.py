@@ -1,6 +1,9 @@
+"""
+Custom Database models for the `diaspora` Django app.
+"""
+
 from django.db import models
 
-# Create your models here.
 
-class Diaspora(models.Model):
+class Diaspora(models.Model):  # noqa: D101, DJ008
     pass

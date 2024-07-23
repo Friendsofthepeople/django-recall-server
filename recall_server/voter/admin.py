@@ -1,6 +1,9 @@
+"""
+Register custom models to the Django Admin site for the `voter` Django app.
+"""
+
 from django.contrib import admin
 
 from .models import Voter
 
-# Register your models here.
 admin.site.register(Voter)

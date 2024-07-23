@@ -1,10 +1,17 @@
-from django.contrib.auth.hashers import make_password
-from rest_framework import serializers
+"""
+Model serializers for the `voter` Django app.
+"""
 
+from django.contrib.auth.hashers import make_password
 from recall_server.voter.models import Voter
+from rest_framework import serializers
 
 
 class VoterSerializer(serializers.ModelSerializer):
+    """
+    Serializer to serialize/deserialize instances of the `Voter` model.
+    """
+
     class Meta:
         model = Voter
         fields = [
@@ -22,5 +29,4 @@ class VoterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data["password"] = make_password(validated_data["password"])
-        # return Voter.objects.create(**validated_data)
         return super().create(validated_data)

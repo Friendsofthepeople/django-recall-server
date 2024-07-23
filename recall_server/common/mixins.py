@@ -1,4 +1,6 @@
-"""Mixins that will be used for models with common characteristics."""
+"""
+Mixins that will be used for models with common characteristics.
+"""
 
 import uuid
 
@@ -6,9 +8,11 @@ from django.db import models
 
 
 class TimeStampable(models.Model):
-    """This mixin is intended to be inherited by all
-    models as it provides the characteristics for when a model
-    is created/updated.
+    """
+    Base abstract timestamp model.
+
+    This mixin is intended to be inherited by all models as it provides the
+    characteristics for when a model is created/updated.
     """
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -32,9 +36,7 @@ class OwnerlessAbstract(TimeStampable):
 
 
 class OwnerAbstract(OwnerlessAbstract):
-    """This mixin is to be used by models that require
-    a user to create/update them.
-    """
+    """This mixin is to be used by models that require a user to create/update them."""
 
     created_by = models.UUIDField(null=True, blank=True, editable=False)
     updated_by = models.UUIDField(null=True, blank=True)

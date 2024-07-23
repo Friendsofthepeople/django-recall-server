@@ -1,3 +1,3 @@
-from django.contrib import admin
-
-# Register your models here.
+"""
+Register custom models to the Django Admin site for the `diaspora` Django app.
+"""

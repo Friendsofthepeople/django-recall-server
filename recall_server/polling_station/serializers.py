@@ -1,12 +1,17 @@
-from rest_framework import serializers
+"""
+Model serializers for the `polling_station` Django app.
+"""
 
 from recall_server.polling_station.models import PollingStation
+from rest_framework import serializers
 
 
 class PollingStationSerializer(serializers.ModelSerializer):
     """
+    Serializer to serialize/deserialize instances of the `PollingStation` model.
+
     Serializers voters polling station and location while
-    keeping track of registered voters count
+    keeping track of registered voters count.
     """
 
     class Meta:
