@@ -37,5 +37,7 @@ WORKDIR /code
 COPY requirements/prod.txt /code/requirements/prod.txt
 RUN pip install --no-cache-dir -r requirements/prod.txt
 
+EXPOSE 8000
+
 # Copy project
 COPY . /code/
