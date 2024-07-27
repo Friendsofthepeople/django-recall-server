@@ -38,7 +38,7 @@ We adhere to the Contributor Covenant Code of Conduct. Please read [CODE_OF_COND
 
 ### 🙌 Want to Contribute?
 
-Your contibution is highly valued. Before gettin started kindly go through [CONTRIBUTING.md](CONTRIBUTING.md) for a better understanding of the project.
+Your contribution is highly valued. Before getting started kindly go through [CONTRIBUTING.md](CONTRIBUTING.md) for a better understanding of the project.
 
 We are open to all kinds of contributions. If you want to:
 

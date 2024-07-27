@@ -26,7 +26,9 @@ class OwnerlessAbstract(TimeStampable):
     """This mixin is to be inherited by all models."""
 
     tokenized_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
     )
     is_active = models.BooleanField(default=True)
 

@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             model_name="memberofparliament",
             name="image",
             field=models.URLField(
-                default="https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=740&t=st=1719052890~\n        exp=1719053490~hmac=4e6f9ee8ae73ee004e482dc13a877e58d9dc91abcc31b2f6cfe9d878199eaba6"
+                default="https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=740&t=st=1719052890~\n        exp=1719053490~hmac=4e6f9ee8ae73ee004e482dc13a877e58d9dc91abcc31b2f6cfe9d878199eaba6",
             ),
         ),
     ]

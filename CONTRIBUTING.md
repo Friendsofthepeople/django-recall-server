@@ -47,7 +47,7 @@ Follow these steps to setup LinksHub on your local machine
    python3 -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
-5. Install dependancies
+5. Install dependencies
    ```sh
    pip install -r ./requirements/dev.txt
    ```
@@ -174,7 +174,7 @@ git commit -m "feat(auth): Implement user signup process (#789)"
 
 ---
 
-## 🔁 Making Pull Requests 
+## 🔁 Making Pull Requests
 
 1. When you submit a pull request, several tests are automatically run
    as GitHub Actions. If any of these tests fail, it is your responsibility to try and resolve the underlying issue(s). If you don't know how to resolve the underlying issue(s), you can ask for help.

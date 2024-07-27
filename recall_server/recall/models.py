@@ -15,11 +15,15 @@ class Recall(OwnerlessAbstract):
     """
 
     recaller = models.ForeignKey(
-        User, related_name="initiated_recalls", on_delete=models.CASCADE
+        User,
+        related_name="initiated_recalls",
+        on_delete=models.CASCADE,
     )
     recalled = models.ForeignKey(User, related_name="recalls", on_delete=models.CASCADE)
     recall_supporters = models.ManyToManyField(
-        User, related_name="supported_recalls", blank=True
+        User,
+        related_name="supported_recalls",
+        blank=True,
     )
     recall_reasons = models.TextField()
 

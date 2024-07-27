@@ -1,6 +1,6 @@
 .PHON: help
-help: 
-	@echo "Use 'make <target>' where <target> is one of" 
+help:
+	@echo "Use 'make <target>' where <target> is one of"
 	@echo "deps                to install dependencies for local development."
 	@echo "runserver           to start the Django server."
 	@echo "migrations          to make migrations."
