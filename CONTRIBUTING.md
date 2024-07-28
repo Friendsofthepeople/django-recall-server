@@ -56,17 +56,29 @@ Follow these steps to setup LinksHub on your local machine
    ```sh
    git checkout -b <your_branch_name>
    ```
-6. Configure environment variables:Create a .env file in the project root and add the following variables:
-   ```sh
+6. Configure environment variables:
+    - Create a `.env` from the `.env.example` file in the project root and update the placeholder _key_ values:
+
+    ```sh
+    # Django project config
+    # ---------------------
+
+    # [warning] Keep production key secret!
     SECRET_KEY=your_secret_key
-    DEBUG=True
-    ALLOWED_HOSTS=localhost,127.0.0.1
+
+    # [warning] Do not run in debug mode in production!
+    DEBUG=False
+
+    # [warning] `*` allows all hosts to connect. Don't use in production.
+    ALLOWED_HOSTS=*
+
     DATABASE_NAME=your_db_name
-    DATABASE_USER=your_db_user
+    DATABASE_HOST=your_db_host
     DATABASE_PASSWORD=your_db_password
-    DATABASE_HOST=db
-    DATABASE_PORT=5432
-   ```
+    DATABASE_USER=your_db_user
+    DATABASE_PORT=your_db_port
+    ```
+
 7. 🐳Build and start the Docker containers:
       ```sh
     docker-compose up --build  
@@ -100,13 +112,22 @@ Follow these steps to setup LinksHub on your local machine
    git commit -m "<your-commit-message>"
    ```
 
-10. Push your changes to your branch
+10. **(Important)** Validate your local checkout
+
+    ```sh
+    # Run local CI checks on your changes
+    make prepush
+    ```
+
+    > ℹ Good ownership implies that contributors are responsible to ensure their contributions pass fundamental quality and validation requirements. Please keep in mind that your contributions will still be subject to remote CI checks on GitHub once you open a PR. Resolving checks locally prior to a 'push' is _faster_, more convenient, and significantly reduces the likelihood that your newly opened PR triggers a CI failure.
+
+11. Push your changes to your branch
 
     ```sh
     git push origin "<your_branch_name>"
     ```
 
-11. Create a [PULL REQUEST](https://github.com/Friendsofthepeople/django-recall-server/compare) 💣
+12. Create a [PULL REQUEST](https://github.com/Friendsofthepeople/django-recall-server/compare) 💣
 
     > Click _compare across forks_ if you don't see your branch
 
