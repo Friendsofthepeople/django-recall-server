@@ -1,4 +1,4 @@
-.PHON: help
+.PHONY: help
 help:
 	@echo "Use 'make <target>' where <target> is one of"
 	@echo "deps                to install dependencies for local development."
@@ -48,3 +48,15 @@ format:
 .PHONY: test
 test:
 	pytest tests/
+
+# local
+.PHONY: prepush
+prepush:
+	@echo "Running CI validation on local checkout before push to remote/origin..."
+	@## Install `pre-commit` if not already installed by user.
+	@## NB: This operation is idempotent.
+	@pre-commit install
+	@## Run pre-commit checks at the project-level.
+	@## NB: pre-commit automatically initializes an environment if none is found.
+	@pre-commit run --all-files --show-diff-on-failure
+	@echo "✅ Valid - all checks passed!"
