@@ -25,7 +25,8 @@ class Migration(migrations.Migration):
             model_name="pollingstation",
             name="created_at",
             field=models.DateTimeField(
-                auto_now_add=True, default=django.utils.timezone.now
+                auto_now_add=True,
+                default=django.utils.timezone.now,
             ),
             preserve_default=False,
         ),
@@ -38,7 +39,10 @@ class Migration(migrations.Migration):
             model_name="pollingstation",
             name="tokenized_id",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                default=uuid.uuid4,
+                editable=False,
+                primary_key=True,
+                serialize=False,
             ),
         ),
         migrations.AddField(

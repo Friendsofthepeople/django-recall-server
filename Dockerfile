@@ -12,7 +12,7 @@
 # COPY requirements/prod.txt /code/requirements/prod.txt
 # RUN pip install --no-cache-dir -r requirements/prod.txt
 
-# RUN python manage.py collectstatic --noinput 
+# RUN python manage.py collectstatic --noinput
 
 # EXPOSE 8000
 

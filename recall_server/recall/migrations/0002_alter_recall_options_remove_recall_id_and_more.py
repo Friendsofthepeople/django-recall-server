@@ -34,7 +34,10 @@ class Migration(migrations.Migration):
             model_name="recall",
             name="tokenized_id",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                default=uuid.uuid4,
+                editable=False,
+                primary_key=True,
+                serialize=False,
             ),
         ),
     ]

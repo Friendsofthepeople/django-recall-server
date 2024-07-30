@@ -32,6 +32,7 @@ class ConstituencyView(APIView):
         if serializer.is_valid():
             constituency = serializer.save()
             return Response(
-                ConstituencySerializer(constituency).data, status=HTTP_201_CREATED
+                ConstituencySerializer(constituency).data,
+                status=HTTP_201_CREATED,
             )
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

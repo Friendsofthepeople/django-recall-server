@@ -1,0 +1,73 @@
+repos:
+  # == General =================================================================
+
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.6.0
+      hooks:
+      -   id: check-builtin-literals
+      -   id: check-executables-have-shebangs
+      -   id: check-json
+      -   id: check-symlinks
+      -   id: check-yaml
+      -   id: debug-statements
+      -   id: detect-private-key
+      -   id: end-of-file-fixer
+      -   id: name-tests-test
+          args: [--pytest-test-first]
+      -   id: trailing-whitespace
+          args: [--markdown-linebreak-ext=md]
+
+  # == Formatting ==============================================================
+
+  -   repo: https://github.com/psf/black
+      rev: 24.4.2
+      hooks:
+      -   id: black
+
+  -   repo: https://github.com/maxwinterstein/shfmt-py
+      rev: v3.7.0.1
+      hooks:
+      -   id: shfmt
+
+  # == Linting =================================================================
+
+  -   repo: https://github.com/astral-sh/ruff-pre-commit
+      rev: v0.5.5
+      hooks:
+      -   id: ruff
+          args: [--fix]
+          exclude: ^(test_utils/|migrations/|setup\.py)$
+
+  -   repo: https://github.com/shellcheck-py/shellcheck-py
+      rev: v0.10.0.1
+      hooks:
+      -   id: shellcheck
+
+  # == Quality =================================================================
+
+  -   repo: https://github.com/asottile/pyupgrade
+      rev: v3.16.0
+      hooks:
+      -   id: pyupgrade
+          args: [--py310-plus]
+
+  -   repo: https://github.com/asottile/add-trailing-comma
+      rev: v3.1.0
+      hooks:
+      -   id: add-trailing-comma
+
+  # == Security ================================================================
+
+  -   repo: https://github.com/PyCQA/bandit
+      rev: 1.7.9
+      hooks:
+      -   id: bandit
+          args: [-r, recall_server]
+
+  # == Docs ====================================================================
+
+  -   repo: https://github.com/codespell-project/codespell
+      rev: v2.3.0
+      hooks:
+      -   id: codespell
+          files: \.(py|sh|md|rst|yml|yaml)$

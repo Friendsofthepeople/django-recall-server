@@ -27,10 +27,14 @@ class Constituency(models.Model):
     name = models.CharField(unique=True, max_length=20)
     registeredvoter_count = models.IntegerField(default=0)
     mp = models.ForeignKey(
-        MemberOfParliament, related_name="constituencies", on_delete=models.CASCADE
+        MemberOfParliament,
+        related_name="constituencies",
+        on_delete=models.CASCADE,
     )
     polling_station = models.ForeignKey(
-        PollingStation, related_name="constituencies", on_delete=models.CASCADE
+        PollingStation,
+        related_name="constituencies",
+        on_delete=models.CASCADE,
     )
 
     def __str__(self):

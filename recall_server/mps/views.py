@@ -23,7 +23,8 @@ class MpRegisterView(APIView):
         if serializer.is_valid():
             mp = serializer.save()
             return Response(
-                MemberOfParliamentSerializer(mp).data, status=status.HTTP_201_CREATED
+                MemberOfParliamentSerializer(mp).data,
+                status=status.HTTP_201_CREATED,
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
