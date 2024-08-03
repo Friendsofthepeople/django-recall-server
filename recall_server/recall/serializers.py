@@ -14,7 +14,6 @@ class RecallSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recall
         fields = [
-            # "id",
             "created_at",
             "updated_at",
             "recalled",
