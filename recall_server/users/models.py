@@ -34,7 +34,6 @@ class User(AbstractBaseUser):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     is_voter = models.BooleanField(default=True)
-    is_voter = models.BooleanField(default=True)
     is_leader = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
