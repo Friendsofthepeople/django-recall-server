@@ -15,7 +15,6 @@ class MemberOfParliamentSerializer(serializers.ModelSerializer):
     class Meta:
         model = MemberOfParliament
         fields = [
-            "id",
             "image",
             "name",
             "county",

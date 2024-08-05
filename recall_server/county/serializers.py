@@ -1,9 +1,10 @@
 """
-Model serializers for `common` Django app.
+Model serializers for `county` Django app.
 """
 
-from county.models import Constituency, County
 from rest_framework import serializers
+
+from county.models import Constituency, County
 
 
 class CountySerializer(serializers.ModelSerializer):

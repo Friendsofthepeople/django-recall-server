@@ -1,3 +1,4 @@
+exclude: migrations/
 repos:
   # == General =================================================================
 
@@ -36,7 +37,7 @@ repos:
       hooks:
       -   id: ruff
           args: [--fix]
-          exclude: ^(test_utils/|migrations/|setup\.py)$
+          exclude: ^(test_utils/|setup\.py)$
 
   -   repo: https://github.com/shellcheck-py/shellcheck-py
       rev: v0.10.0.1
