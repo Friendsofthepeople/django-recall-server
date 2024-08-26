@@ -4,7 +4,7 @@ Model serializers for `county` Django app.
 
 from rest_framework import serializers
 
-from county.models import Constituency, County
+from recall_server.county.models import Constituency, County
 
 
 class CountySerializer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class CountySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = County
-        fields = ["name"]
+        fields = ["name", "county_number"]
         read_only_fields = ["constituency_count"]
 
     def create(self, validated_data):

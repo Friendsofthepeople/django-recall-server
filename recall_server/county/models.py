@@ -13,6 +13,7 @@ class County(models.Model):
     """
 
     name = models.CharField(unique=True, max_length=40)
+    county_number = models.CharField(max_length=3, unique=True, default=000)
     constituency_count = models.IntegerField(default=0)
 
     def __str__(self):

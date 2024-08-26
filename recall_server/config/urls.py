@@ -27,6 +27,7 @@ urlpatterns = [
     path("api/voter/", include("recall_server.voter.urls")),
     path("api/mps/", include("recall_server.mps.urls")),
     path("api/recall/", include("recall_server.recall.urls")),
+    path("api/laws/", include("recall_server.laws.urls")),
     path(
         "docs/swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
