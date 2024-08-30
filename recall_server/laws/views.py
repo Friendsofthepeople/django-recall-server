@@ -2,8 +2,9 @@ from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from recall_server.laws.models import Bill, House
-from recall_server.laws.serializers import BillSerializer, HouseSerializer
+from recall_server.laws.models import Bill, House, Discussion
+from recall_server.laws.serializers import BillSerializer, HouseSerializer,
+DiscussionSerializer
 from recall_server.county.models import County
 from recall_server.county.serializers import CountySerializer
 
@@ -59,3 +60,17 @@ class BillViewSet(viewsets.ModelViewSet):
             serializer = BillSerializer(bills, many=True)
             return Response(serializer.data)
         return Response({"detail": "No county provided."})
+
+
+class DiscussionViewSet(viewsets.ModelViewSet):
+    queryset = Discussion.objects.all()
+    serializer_class = DiscussionSerializer
+
+    def get_queryset(self):
+        bill_id = self.request.query_params.get('bill_id')
+        if bill_id:
+            return self.queryset.filter(
+                    bill_id=bill_id,
+                    parent__isnull=True
+                    )
+        return self.queryset.filter(parent__isnull=True)
