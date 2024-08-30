@@ -2,40 +2,59 @@
 Custom views for the `county` Django app.
 """
 
-from rest_framework import status
+from rest_framework import viewsets, filters
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-from county.serializers import ConstituencySerializer, CountySerializer
+from recall_server.county.models import(
+        County,
+        Constituency,
+        Senator,
+        MCA
+        )
+from recall_server.county.serializers import(
+        ConstituencySerializer,
+        CountySerializer,
+        SenatorSerializer,
+        MCASerializer
+        )
 
 
-class CountyView(APIView):
+class CountyView(viewsets.ModelViewSet):
     """
-    Custom, class-based API dispatcher for the `common.County` model.
+    Handles CRUD operations for County
     """
-
-    def post(self, request):
-        serializer = CountySerializer(data=request.data)
-        if serializer.is_valid():
-            county = serializer.save()
-            return Response(
-                CountySerializer(county).data,
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    queryset = County.objects.all()
+    serializer_class = CountySerializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    search_fields = ['county', 'county_number']
 
 
-class ConstituencyView(APIView):
+class SenatorView(viewsets.ModelViewSet):
     """
-    Custom, class-based API dispatcher for the `common.Constituency` model.
+    Handles CRUD operations on Senator
     """
+    queryset = Senator.objects.all()
+    serializer_class = SenatorSerializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    search_fields = ['name', 'county']
 
-    def post(self, request):
-        serializer = ConstituencySerializer(data=request.data)
-        if serializer.is_valid():
-            constituency = serializer.save()
-            return Response(
-                ConstituencySerializer(constituency).data,
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ConstituencyView(viewsets.ModelViewSet):
+    """
+    Handles CRUD operations for Constituency
+    """
+    queryset = Constituency.objects.all()
+    serializer_class = ConstituencySerializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    search_fields = ['name', 'mp']
+
+
+class MCAView(viewsets.ModelViewSet):
+    """
+    Handles CRUD operations for MCA
+    """
+    queryset = MCA.objects.all()
+    serializer_class = MCASerializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    search_fields = ['name', 'ward']
