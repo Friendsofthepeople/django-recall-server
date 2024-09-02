@@ -20,7 +20,7 @@ from recall_server.county.serializers import(
         )
 
 
-class CountyView(viewsets.ModelViewSet):
+class CountyViewSet(viewsets.ModelViewSet):
     """
     Handles CRUD operations for County
     """
@@ -30,7 +30,7 @@ class CountyView(viewsets.ModelViewSet):
     search_fields = ['county', 'county_number']
 
 
-class SenatorView(viewsets.ModelViewSet):
+class SenatorViewSet(viewsets.ModelViewSet):
     """
     Handles CRUD operations on Senator
     """
@@ -40,7 +40,7 @@ class SenatorView(viewsets.ModelViewSet):
     search_fields = ['name', 'county']
 
 
-class ConstituencyView(viewsets.ModelViewSet):
+class ConstituencyViewSet(viewsets.ModelViewSet):
     """
     Handles CRUD operations for Constituency
     """
@@ -50,7 +50,7 @@ class ConstituencyView(viewsets.ModelViewSet):
     search_fields = ['name', 'mp']
 
 
-class MCAView(viewsets.ModelViewSet):
+class MCAViewSet(viewsets.ModelViewSet):
     """
     Handles CRUD operations for MCA
     """

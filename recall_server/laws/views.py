@@ -2,9 +2,12 @@ from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from recall_server.laws.models import Bill, House, Discussion
-from recall_server.laws.serializers import BillSerializer, HouseSerializer,
-DiscussionSerializer
+from recall_server.laws.models import Bill, House, Comment
+from recall_server.laws.serializers import(
+        BillSerializer,
+        HouseSerializer,
+        CommentSerializer
+        )
 from recall_server.county.models import County
 from recall_server.county.serializers import CountySerializer
 
@@ -40,7 +43,7 @@ class BillViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def counties(self, request):
         """
-        Returns a list of countries when County Assembly is selected
+        Returns a list of counties when County is selected
         """
         house = request.query_params.get('house')
         if house == 'county_assembly':
@@ -62,15 +65,6 @@ class BillViewSet(viewsets.ModelViewSet):
         return Response({"detail": "No county provided."})
 
 
-class DiscussionViewSet(viewsets.ModelViewSet):
-    queryset = Discussion.objects.all()
-    serializer_class = DiscussionSerializer
-
-    def get_queryset(self):
-        bill_id = self.request.query_params.get('bill_id')
-        if bill_id:
-            return self.queryset.filter(
-                    bill_id=bill_id,
-                    parent__isnull=True
-                    )
-        return self.queryset.filter(parent__isnull=True)
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer

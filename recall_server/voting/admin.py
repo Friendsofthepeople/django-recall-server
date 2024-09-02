@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from recall_server.voting.models import OfficialVote, PublicVote
+
+
+admin.site.register(OfficialVote)
+admin.site.register(PublicVote)

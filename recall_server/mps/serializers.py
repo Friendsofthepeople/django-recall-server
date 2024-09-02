@@ -4,7 +4,7 @@ Model serializers for the `mps` Django app.
 
 from rest_framework import serializers
 
-from .models import MemberOfParliament
+from recall_server.mps.models import MemberOfParliament
 from recall_server.voting.serializers import OfficialVoteSerializer
 
 
@@ -12,7 +12,7 @@ class MemberOfParliamentSerializer(serializers.ModelSerializer):
     """
     Serializer to serialize/deserialize instances of the `MemberOfParliament` model.
     """
-    voting_history = OfficialVoteSerializer(many=True, source='voting_history')
+    voting_history = OfficialVoteSerializer(many=True)
 
     class Meta:
         model = MemberOfParliament

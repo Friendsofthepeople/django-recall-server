@@ -11,7 +11,15 @@ class PublicVoteSerializer(serializers.ModelSerializer):
         fields = ['bill', 'user', 'vote', 'comment', 'date']
 
 
-class OfficialVoteSerialzer(serializers.ModelSerializers):
+class OfficialVoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = OfficialVote
         fields = ['bill', 'legislator', 'vote']
+
+
+class VoteStatsSerializer(serializers.Serializer):
+    county = serializers.CharField()
+    yes_votes = serializers.IntegerField()
+    no_votes = serializers.IntegerField()
+    abstain_votes = serializers.IntegerField()
+    total_votes = serializers.IntegerField()
