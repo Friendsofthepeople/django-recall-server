@@ -3,6 +3,7 @@ Custom Database models for the `mps` Django app.
 """
 
 from django.db import models
+
 from recall_server.common.mixins import OwnerlessAbstract
 
 
