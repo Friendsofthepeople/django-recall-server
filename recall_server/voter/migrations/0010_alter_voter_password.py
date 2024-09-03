@@ -2,7 +2,6 @@
 
 from django.db import migrations, models
 
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -13,6 +12,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='voter',
             name='password',
-            field=models.CharField(default='pbkdf2_sha256$720000$9aWtCiZYU6kM9CiOfRW0Ic$LsHLsoTg4orcGxhe/tLUunUH12xvnE5YGgzhC+++KYk=', max_length=128),
+
+            field=models.CharField(default='pbkdf2_sha256$720000$2kTaGZru8f15mXjlfnkgKs$zlnvVEFkxSav8mN4jsvhj1coUz8Reh2XL4CIwKaZgq4=', max_length=128),
         ),
     ]
