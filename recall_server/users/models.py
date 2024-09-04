@@ -33,6 +33,7 @@ class User(AbstractUser):
     """ User model representing custom user accounts for the project. """
 
     id_number = models.CharField(max_length=8, default=None)
+    profile_pic = models.URLField(default="https://cdn.pixabay.com/photo/2021/07/25/08/03/account-6491185_1280.png")
     email = models.EmailField(unique=True)
     is_voter = models.BooleanField(default=True)
     is_leader = models.BooleanField(default=False)
