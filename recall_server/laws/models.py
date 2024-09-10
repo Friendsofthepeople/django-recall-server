@@ -39,6 +39,9 @@ class Bill(models.Model):
     deadline_for_voting = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['deadline_for_voting']
+
     def __str__(self):
         return f"{self.house} {self.bill_number}: {self.title}"
 
