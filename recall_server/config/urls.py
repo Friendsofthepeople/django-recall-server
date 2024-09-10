@@ -30,6 +30,7 @@ urlpatterns = [
     path("api/laws/", include("recall_server.laws.urls")),
     path("api/county/", include("recall_server.county.urls")),
     path("api/voting/", include("recall_server.voting.urls")),
+    path("api/discussions/", include("recall_server.discussions.urls")),
     path(
         "docs/swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
