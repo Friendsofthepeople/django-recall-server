@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
-from django.contrib.auth.models import User
+
+from recall_server.config import settings
 
 # from recall_server.county.models import County
 
@@ -51,7 +52,7 @@ class Comment(models.Model):
             on_delete=models.CASCADE,
             related_name='discussions'
             )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

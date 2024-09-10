@@ -14,3 +14,4 @@ db_m.py
 env.sh
 .pytest_cache
 .coverage
+recall_server/static/

@@ -1,8 +1,9 @@
 from django.db import models
 from django.db.models import Count
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+
+from recall_server.config import settings
 
 # from recall_server.county.models import County
 
@@ -33,7 +34,7 @@ class PublicVote(models.Model):
             'laws.Bill',
             on_delete=models.CASCADE
             )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     vote = models.CharField(
             max_length=10,
             choices=VoteChoices.choices
