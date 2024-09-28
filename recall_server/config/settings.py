@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "recall_server.laws",
     "recall_server.voting",
     "recall_server.discussions",
+    "recall_server.issues",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

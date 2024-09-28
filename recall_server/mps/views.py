@@ -16,7 +16,7 @@ class MpRegisterView(APIView):
     Custom, class-based API dispatcher for the `voter.Voter` model.
     """
 
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def post(self, request):
         serializer = MemberOfParliamentSerializer(data=request.data)
