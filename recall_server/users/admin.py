@@ -1,3 +1,5 @@
-"""
-Register custom models to the Django Admin site for the `users` Django app.
-"""
+from django.contrib import admin
+
+from recall_server.users.models import User
+
+admin.site.register(User)
