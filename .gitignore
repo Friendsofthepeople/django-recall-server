@@ -15,3 +15,6 @@ env.sh
 .pytest_cache
 .coverage
 recall_server/static/
+
+# ignore all migrations
+**/migrations/
