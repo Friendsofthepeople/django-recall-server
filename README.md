@@ -17,6 +17,9 @@ A Django server for managing the verification of constituents, publishing of rep
   <a href="https://gitpod.io/#https://github.com/Friendsofthepeople/django-recall-server">
     <img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod">
   </a>
+  <a href="https://app.codeanywhere.com/#https://github.com/Friendsofthepeople/django-recall-server">
+    <img src="https://codeanywhere.com/img/open-in-codeanywhere-btn.svg" alt="Open in Codeanywhere">
+  </a>
 </p>
 
 <img src="assets/images/Parliament.png" alt="Django Reacall Server cover image" width="100%">
