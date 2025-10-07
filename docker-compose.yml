@@ -1,15 +1,16 @@
 
 services:
   db:
-    image: postgres:13
+    container_name: db
+    image: postgres:16
     environment:
-      POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: recall
+      POSTGRES_USER: ru0ya
+      POSTGRES_PASSWORD: password
     volumes:
       - npgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   web:
     build: .
@@ -20,6 +21,12 @@ services:
       - "8000:8000"
     depends_on:
       - db
+        #networks:
+        #- djangonetwork
 
 volumes:
   npgdata:
+
+    #networks:
+    #djangonetwork:
+    #driver: bridge

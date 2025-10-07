@@ -5,20 +5,22 @@ from django.utils import timezone
 
 from recall_server.config import settings
 
-# from recall_server.county.models import County
-
-
-HOUSE_CHOICES = [
-        ('county_assembly', 'County Assembly'),
-        ('senate', 'Senate'),
-        ('parliament', 'Parliament')
-        ]
+#from recall_server.county.models import County
 
 
 class House(models.Model):
+    """
+    Helps keep track of the house of assembly in which a bill was
+    proposed/passed.
+    """
+    class Name(models.TextChoices):
+        COUNTY_ASSEMBLY = 'County Assembly', 'county_assembly'
+        SENATE = 'Senate', 'senate'
+        NATIONAL_ASSEMBLY = 'National Assembly', 'national_assembly'
+
     name = models.CharField(
             max_length=100,
-            choices=HOUSE_CHOICES,
+            choices=Name.choices,
             unique=True
             )
     house_id = models.UUIDField(
@@ -31,37 +33,78 @@ class House(models.Model):
 
 
 class Bill(models.Model):
+    """
+    Keeps track of bills proposed across all houses.
+    """
+    class Stage(models.TextChoices):
+        DRAFT = 'Draft', 'draft'
+        FIRST_READING = 'First Reading', 'first_reading'
+        SECOND_READING = 'Second Reading', 'second_reading'
+        COMMITTEE_STAGE = 'Committee Stage', 'committee_stage'
+        THIRD_READING = 'Third Reading', 'third_reading'
+
+    class Status(models.TextChoices):
+        PENDING = 'Pending', 'pending'
+        ACTIVE = 'Active', 'active'
+        CLOSED = 'Closed', 'closed'
+
+
     title = models.CharField(max_length=255)
     description = models.TextField()
-    bill_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    bill_number = models.CharField(max_length=100, unique=True)
-    house = models.ForeignKey(House, on_delete=models.CASCADE, related_name='bills')
-    stage = models.CharField(max_length=100, choices=[
-        ('draft', 'Draft'),
-        ('first_reading', 'First Reading'),
-        ('second_reading', 'Second Reading'),
-        ('committee', 'Committee Stage'),
-        ('third_reading', 'Third Reading'),
-        ('passed', 'Passed'),
-        ('rejected', 'Rejected')
-    ])
-    status = models.CharField(max_length=100, choices=[
-        ('pending', 'Pending'),
-        ('active', 'Active'),
-        ('closed', 'Closed')
-    ])
+    bill_id = models.UUIDField(
+            primary_key=True,
+            default=uuid.uuid4
+            )
+    bill_number = models.CharField(
+            max_length=100,
+            unique=True
+            )
+    house = models.ForeignKey(
+            House,
+            on_delete=models.CASCADE,
+            related_name='bills'
+            )
+    county = models.ForeignKey(
+            'county.County',
+            on_delete=models.CASCADE,
+            related_name='county_bills',
+            null=True,
+            blank=True
+            )
+    stage = models.CharField(
+            max_length=100,
+            choices=Stage.choices
+            )
+    status = models.CharField(
+            max_length=100,
+            choices=Status.choices
+            )
     deadline_for_voting = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     # New fields for better tracking
     proposed_date = models.DateField(auto_now_add=True)
-    summary = models.TextField(blank=True, help_text="A citizen-friendly summary of what this bill proposes")
-    impact_analysis = models.TextField(blank=True, help_text="Analysis of the potential impact of this bill")
-    tags = models.CharField(max_length=255, blank=True, help_text="Comma-separated tags for categorizing bills")
+    summary = models.TextField(
+            blank=True,
+            help_text="A citizen-friendly summary of what this bill proposes"
+            )
+    impact_analysis = models.TextField(
+            blank=True,
+            help_text="Analysis of the potential impact of this bill"
+            )
+    tags = models.CharField(
+            max_length=255,
+            blank=True,
+            help_text="Comma-separated tags for categorizing bills"
+            )
     
     # Track stage history
-    stage_history = models.JSONField(default=list, blank=True, help_text="History of stage changes with dates")
+    stage_history = models.JSONField(
+            default=list,
+            blank=True,
+            help_text="History of stage changes with dates"
+            )
     
     # Track votes summary
     yes_votes_count = models.PositiveIntegerField(default=0)
@@ -74,7 +117,10 @@ class Bill(models.Model):
     public_abstain_votes = models.PositiveIntegerField(default=0)
 
     # Publishing workflow fields
-    is_draft = models.BooleanField(default=True, help_text="Whether this bill is still in draft stage")
+    is_draft = models.BooleanField(
+            default=True,
+            help_text="Whether this bill is still in draft stage"
+            )
     current_revision = models.ForeignKey(
         'BillRevision', 
         on_delete=models.SET_NULL, 
@@ -84,17 +130,15 @@ class Bill(models.Model):
     )
     
     # Committee information
-    referred_to_committee = models.CharField(max_length=255, blank=True, help_text="Committee this bill was referred to")
+    referred_to_committee = models.CharField(
+            max_length=255,
+            blank=True,
+            help_text="Committee this bill was referred to"
+            )
     committee_report = models.TextField(blank=True, help_text="Report from the committee")
     committee_recommendation = models.CharField(
-        max_length=20, 
-        blank=True, 
-        choices=[
-            ('pass', 'Pass'),
-            ('pass_with_amendments', 'Pass with Amendments'),
-            ('reject', 'Reject'),
-            ('further_review', 'Further Review Needed')
-        ]
+        max_length=255, 
+        blank=True,
     )
     
     # Public participation
@@ -121,7 +165,9 @@ class Bill(models.Model):
         return self.status == 'active' and self.deadline_for_voting > timezone.now()
         
     def update_stage(self, new_stage, notes=""):
-        """Update the bill's stage and record in history"""
+        """
+        Update the bill's stage and record in history.
+        """
         if not self.stage_history:
             self.stage_history = []
             
@@ -137,7 +183,9 @@ class Bill(models.Model):
         self.save()
         
     def update_vote_counts(self):
-        """Update the vote count summaries"""
+        """
+        Update the vote count summaries.
+        """
         official_votes = self.officialvote_set.all()
         self.yes_votes_count = official_votes.filter(vote='yes').count()
         self.no_votes_count = official_votes.filter(vote='no').count()
@@ -151,7 +199,9 @@ class Bill(models.Model):
         self.save()
         
     def get_proposer(self):
-        """Get the legislator who proposed this bill"""
+        """
+        Get the legislator who proposed this bill.
+        """
         # Check if proposed by senator
         senator = self.proposed_by_senator.first()
         if senator:
@@ -170,7 +220,9 @@ class Bill(models.Model):
         return None
         
     def get_public_opinion_percentage(self):
-        """Calculate the percentage of public support"""
+        """
+        Calculate the percentage of public support.
+        """
         total_votes = self.public_yes_votes + self.public_no_votes + self.public_abstain_votes
         if total_votes == 0:
             return {'yes': 0, 'no': 0, 'abstain': 0}
@@ -182,7 +234,9 @@ class Bill(models.Model):
         }
         
     def get_official_vote_percentage(self):
-        """Calculate the percentage of official support"""
+        """
+        Calculate the percentage of official support.
+        """
         total_votes = self.yes_votes_count + self.no_votes_count + self.abstain_votes_count
         if total_votes == 0:
             return {'yes': 0, 'no': 0, 'abstain': 0}
@@ -194,7 +248,9 @@ class Bill(models.Model):
         }
 
     def get_current_revision(self):
-        """Get the current revision of the bill"""
+        """
+        Get the current revision of the bill.
+        """
         if self.current_revision:
             return self.current_revision
         
@@ -208,7 +264,9 @@ class Bill(models.Model):
         return None
     
     def create_revision(self, content, summary="", created_by=None, is_published=False):
-        """Create a new revision of this bill"""
+        """
+        Create a new revision of this bill.
+        """
         # Get the latest version number
         latest = self.revisions.order_by('-version_number').first()
         version_number = 1
@@ -233,7 +291,9 @@ class Bill(models.Model):
         return revision
         
     def publish_law(self, law_number, enactment_date, effective_date, gazette_reference=""):
-        """Publish this bill as an enacted law"""
+        """
+        Publish this bill as an enacted law.
+        """
         if self.stage != 'passed':
             raise ValueError("Only passed bills can be published as laws")
             
@@ -256,19 +316,25 @@ class Bill(models.Model):
         return law
         
     def start_public_participation(self, end_date):
-        """Start the public participation period for this bill"""
+        """
+        Start the public participation period for this bill.
+        """
         now = timezone.now()
         self.public_participation_start = now
         self.public_participation_end = end_date
         self.save(update_fields=['public_participation_start', 'public_participation_end'])
         
     def end_public_participation(self):
-        """End the public participation period for this bill"""
+        """
+        End the public participation period for this bill.
+        """
         self.public_participation_end = timezone.now()
         self.save(update_fields=['public_participation_end'])
         
     def is_public_participation_active(self):
-        """Check if public participation is currently active"""
+        """
+        Check if public participation is currently active.
+        """
         now = timezone.now()
         return (
             self.public_participation_start is not None and
@@ -277,18 +343,25 @@ class Bill(models.Model):
         )
         
     def refer_to_committee(self, committee_name):
-        """Refer this bill to a committee"""
+        """
+        Refer this bill to a committee.
+        """
         self.referred_to_committee = committee_name
         self.save(update_fields=['referred_to_committee'])
         
     def add_committee_report(self, report, recommendation):
-        """Add a committee report to this bill"""
+        """
+        Add a committee report to this bill.
+        """
         self.committee_report = report
         self.committee_recommendation = recommendation
         self.save(update_fields=['committee_report', 'committee_recommendation'])
 
 
 class Comment(models.Model):
+    """
+    Keeps tracks of comments people have on proposed laws.
+    """
     bill = models.ForeignKey(
             Bill,
             on_delete=models.CASCADE,
@@ -331,22 +404,30 @@ class Comment(models.Model):
         return f"Discussion by {self.user.first_name} on {self.bill.title}"
         
     def get_replies_count(self):
-        """Get the count of replies to this comment"""
+        """
+        Get the count of replies to this comment.
+        """
         return self.replies.count()
         
     def get_all_replies(self):
-        """Get all replies in a threaded structure"""
+        """
+        Get all replies in a threaded structure.
+        """
         return self.replies.all().order_by('created_at')
         
     def report(self):
-        """Report this comment for moderation"""
+        """
+        Report this comment for moderation.
+        """
         self.reported_count += 1
         if self.reported_count >= 5:  # Auto-hide after 5 reports
             self.is_approved = False
         self.save()
         
     def like(self):
-        """Increment the like count"""
+        """
+        Increment the like count.
+        """
         self.likes_count += 1
         self.save()
 

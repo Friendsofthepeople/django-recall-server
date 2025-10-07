@@ -6,6 +6,9 @@ from recall_server.laws.models import Bill, House, Comment, BillRevision, BillAm
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Comment model.
+    """
     user_name = serializers.SerializerMethodField()
     replies_count = serializers.SerializerMethodField()
     
@@ -34,6 +37,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class CommentDetailSerializer(CommentSerializer):
+    """
+    Serializer for users replies to comments.
+    """
     replies = serializers.SerializerMethodField()
     
     class Meta(CommentSerializer.Meta):
@@ -156,6 +162,9 @@ class PublishedLawDetailSerializer(PublishedLawSerializer):
 
 
 class BillSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Bill model.
+    """
     comments_count = serializers.SerializerMethodField()
     proposer = serializers.SerializerMethodField()
     vote_summary = serializers.SerializerMethodField()
@@ -174,6 +183,7 @@ class BillSerializer(serializers.ModelSerializer):
                 'summary',
                 'bill_number',
                 'house',
+                'county',
                 'stage',
                 'status',
                 'deadline_for_voting',
@@ -243,6 +253,9 @@ class BillSerializer(serializers.ModelSerializer):
 
 
 class BillDetailSerializer(BillSerializer):
+    """
+    Detailis the Bill model.
+    """
     comments = CommentSerializer(source='discussions', many=True, read_only=True)
     impact_analysis = serializers.CharField()
     stage_history = serializers.JSONField()
@@ -260,6 +273,9 @@ class BillDetailSerializer(BillSerializer):
 
 
 class HouseSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the House model.
+    """
     bills_count = serializers.SerializerMethodField()
     
     class Meta:

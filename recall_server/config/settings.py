@@ -32,8 +32,8 @@ INSTALLED_APPS = [
     "recall_server.recall",
     "recall_server.laws",
     "recall_server.voting",
-    "recall_server.discussions",
     "recall_server.issues",
+    "recall_server.discussions",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -151,7 +151,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

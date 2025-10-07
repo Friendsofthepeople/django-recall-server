@@ -24,8 +24,9 @@ class County(models.Model):
 
 class Senator(Legislator):
     """
-    Keep track of senators and their legislative activities
+    Keep track of senators and their legislative activities.
     """
+
     name = models.CharField(max_length=200)
     county = models.ForeignKey(
             County,
@@ -91,7 +92,7 @@ class Constituency(models.Model):
 
 class MCA(Legislator):
     """
-    Keep track of MCAs and their ward representation
+    Keep track of MCAs and their ward representation.
     """
     name = models.CharField(max_length=200)
     ward = models.CharField(max_length=200, unique=True)

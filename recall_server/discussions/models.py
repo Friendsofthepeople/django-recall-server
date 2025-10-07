@@ -3,6 +3,9 @@ from django.conf import settings
 
 
 class Post(models.Model):
+    """
+    Model for tracking posts to discuss bills/laws as proposed.
+    """
     title = models.CharField(max_length=200)
     author = models.ForeignKey(
             settings.AUTH_USER_MODEL,
@@ -19,6 +22,9 @@ class Post(models.Model):
 
 
 class Response(models.Model):
+    """
+    Model to allow users post their views on posts made on bills/proposed laws.
+    """
     post = models.ForeignKey(
             Post,
             on_delete=models.CASCADE,
