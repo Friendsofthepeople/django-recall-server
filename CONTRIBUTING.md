@@ -12,27 +12,25 @@ Thank you for taking the time to contribute to our project. Please take a moment
 
 ## Prerequisites ⚠️
 
-- Open Source Etiquette: If you've never contributed to an open source project before, have a read of [Basic etiquette](https://developer.mozilla.org/en-US/docs/MDN/Community/Open_source_etiquette) for open source projects.
+- Open Source Etiquette: If you've never contributed to an open source project before, have a read of [Basic etiquette](https://mozilla.org) for open source projects.
 
-- Basic familiarity with Git and GitHub: If you are also new to these tools, visit [GitHub for complete beginners](https://developer.mozilla.org/en-US/docs/MDN/Contribute/GitHub_beginners) for a comprehensive introduction to them.
+- Basic familiarity with Git and GitHub: If you are also new to these tools, visit [GitHub for complete beginners](https://mozilla.org) for a comprehensive introduction to them.
 
-- Make sure you have [Django](https://www.djangoproject.com/) installed.
-- Make sure you have [PostgreSQL](https://www.postgresql.org/) installed.
-- Make sure you have [Docker](https://www.docker.com/) installed.
+- Make sure you have [Docker](https://docker.com) and Docker Compose installed. There is no need to manually install system-level Python or PostgreSQL runtimes, as the entire stack is self-contained in our isolated Docker environment.
 ---
 
 ## How to Contribute 🤔
 
-To get started, look at the existing [**Issues**](https://github.com/Friendsofthepeople/django-recall-server/issues) or [**create a new issue**](https://github.com/Friendsofthepeople/django-recall-server/issues/new/choose)!
+To get started, look at the existing [**Issues**](https://github.com) or [**create a new issue**](https://github.com/new/choose)!
 
 ### Setup guidelines 🪜
-Follow these steps to setup LinksHub on your local machine
+Follow these steps to setup the project on your local machine:
 
-1. [Fork](https://github.com/Friendsofthepeople/django-recall-server/fork) the project
+1. [Fork](https://github.com) the project
 2. Clone the project to run on your local machine using the following command:
 
    ```sh
-   git clone https://github.com/Friendsofthepeople/django-recall-server.git
+   git clone https://github.com
    ```
 
 3. Get into the root directory
@@ -41,93 +39,74 @@ Follow these steps to setup LinksHub on your local machine
    cd django-recall-server
    ```
 
-4. Create and activate a virtual environment:
-
-   ```sh
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
-5. Install dependencies
-   ```sh
-   pip install -r ./requirements/dev.txt
-   ```
-
-6. Create your branch
+4. Create your branch
    ```sh
    git checkout -b <your_branch_name>
    ```
-6. Configure environment variables:
-    - Create a `.env` from the `.env.example` file in the project root and update the placeholder _key_ values:
 
-    ```sh
-    # Django project config
-    # ---------------------
+5. Configure environment variables:
+    - Create a `.env` file from the `.env.example` template in the project root.
+    - Set your standard credentials. **Note:** If you are running local testing databases directly on your host machine using port `5432` or have services using port `8000`, the docker infrastructure will automatically map container traffic out of conflict to host ports **`5435`** (Database) and **`9000`** (Web Server).
 
-    # [warning] Keep production key secret!
-    SECRET_KEY=your_secret_key
-
-    # [warning] Do not run in debug mode in production!
-    DEBUG=False
-
-    # [warning] `*` allows all hosts to connect. Don't use in production.
+    ```ini
+    # Django project config template
+    SECRET_KEY=your_secret_key_here
+    DEBUG=True
     ALLOWED_HOSTS=*
 
-    DATABASE_NAME=your_db_name
-    DATABASE_HOST=your_db_host
-    DATABASE_PASSWORD=your_db_password
-    DATABASE_USER=your_db_user
-    DATABASE_PORT=your_db_port
+    DATABASE_NAME=recall_db
+    DATABASE_USER=postgres
+    DATABASE_PASSWORD=secret_password
     ```
 
-7. 🐳Build and start the Docker containers:
-      ```sh
-    docker-compose up --build  
-     ```
-8. Apply database migrations:
+6. 🐳 Build and compile the container stack (Locks environment runtime to Python 3.12-slim):
    ```sh
-   docker-compose exec web python manage.py migrate
+   docker compose up --build  
    ```
-9. Create superuser
+
+7. Run database migrations inside the active application cluster:
    ```sh
-   docker-compose exec web python manage.py createsuperuser
+   docker compose exec web python manage.py migrate
    ```
-10. Running development server
-    ```sh
-    docker-compose up
-    Access the server at http://localhost:8000
-    ```
-11. Now start adding your changes. Note: You don't need to restart the container again and again after starting it once, because the changes you make will reflect in the container instantly.
 
-7. Make your changes before staging them.
+8. Create your initial local administrator account:
+   ```sh
+   docker compose exec web python manage.py createsuperuser
+   ```
 
-8. Stage your changes
+9. Accessing the runtime interface:
+   - Your local application server is exposed outside the container workspace.
+   - Access the developer site at **`http://localhost:9000`**.
+   - Code synchronization volumes are active. Any edits you apply locally on your host editor are immediately synchronized into the application container execution environment without rebuilding.
+
+10. Stage your changes
 
    ```sh
    git add <filename>
    ```
 
-9. Commit your changes
+11. Commit your changes
 
    ```sh
    git commit -m "<your-commit-message>"
    ```
 
-10. **(Important)** Validate your local checkout
+12. **(Important)** Validate your local checkout
 
     ```sh
     # Run local CI checks on your changes
     make prepush
     ```
 
-    > ℹ Good ownership implies that contributors are responsible to ensure their contributions pass fundamental quality and validation requirements. Please keep in mind that your contributions will still be subject to remote CI checks on GitHub once you open a PR. Resolving checks locally prior to a 'push' is _faster_, more convenient, and significantly reduces the likelihood that your newly opened PR triggers a CI failure.
+    > ℹ Good ownership implies that contributors are responsible to ensure their contributions pass fundamental quality and validation requirements. Please keep in mind that your contributions will still be subject to remote CI checks on GitHub once you open a PR. Resolving checks locally prior to a 'push' is _faster_, more convenient, and significantly reduces the likelihood that your newly opened PR triggers a CI failure.
 
-11. Push your changes to your branch
+13. Push your changes to your branch
 
     ```sh
     git push origin "<your_branch_name>"
     ```
 
-12. Create a [PULL REQUEST](https://github.com/Friendsofthepeople/django-recall-server/compare) 💣
+14. Create a [PULL REQUEST](https://github.com) 💣
 
     > Click _compare across forks_ if you don't see your branch
 
@@ -135,7 +114,7 @@ Follow these steps to setup LinksHub on your local machine
 
 ## Issues 🎃
 
-- Select an issue template from the [issues](https://github.com/Friendsofthepeople/django-recall-server/issues) tab. Otherwise, choose **Other** if it doesn't match what you're looking for.
+- Select an issue template from the [issues](https://github.com) tab. Otherwise, choose **Other** if it doesn't match what you're looking for.
 - When creating an issue, make sure you fill up all the fields properly.
 - Make sure that you are NOT raising a **duplicate issue**.
 - If you want to work on the issue, please click on the _I am willing to work on this issue_ checkmark.
@@ -203,28 +182,28 @@ git commit -m "feat(auth): Implement user signup process (#789)"
 2. Each pull request should contain a single logical change or related set of changes that make sense to submit together. If a pull request becomes too large or contains too many unrelated changes, it becomes too difficult to review. In such cases, the reviewer has the right to close your pull request and ask that you submit a separate pull request for each logical set of changes that belong together.
 
 3. Link the issue you have resolved in the Pull Request Template (e.g. Closes/Fixes #99).
-4. Use our [Commit messages Guidelines](https://github.com/Friendsofthepeople/django-recall-server/main/CONTRIBUTING.md#commits-message-guidelines-) for your changes.
+4. Use our [Commit messages Guidelines](https://github.com) for your changes.
 5. Do not re-open a pull request that a reviewer has closed.
    - Make sure to tick the "Allow edits from maintainers" box. This allows us to directly make minor edits / refactors and saves a lot of time.
      > **Note**
-     > If your pull request has merge conflicts with the `main` branch (GitHub checks for this automatically and notifies you), you are responsible for resolving them. You can do this by merging the `main` branch into your branch (`git pull upstream main`), and then pushing the updated branch to your fork (`git push`). If you need more tips, check out [Resolving a merge conflict on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-on-github).
+     > If your pull request has merge conflicts with the `main` branch (GitHub checks for this automatically and notifies you), you are responsible for resolving them. You can do this by merging the `main` branch into your branch (`git pull upstream main`), and then pushing the updated branch to your fork (`git push`). If you need more tips, check out [Resolving a merge conflict on GitHub](https://github.com).
 
 ---
 
-## Remarks ✅
-
-- If something is missing here, or you feel something is not well described, either create a PR, [raise an issue](https://github.com/Friendsofthepeople/django-recall-server/issues), or [do a code review of the person’s PR](https://www.freecodecamp.org/news/code-review-tips/) (ensure that your review conforms to the [Code of Conduct](https://github.com/carlagesa/django-recall-server/blob/swaagger-documentation/CODE_OF_CONDUCT.md))
-
-- You can tag maintainers for any kind of difficulty using `@username`.
+## Remarks
+- If something is missing here, or you feel something is not well described, either create a PR, raise an issue, or do a code review of the person’s PR (ensure that your review conforms to the Code of Conduct)
+- You can tag maintainers for any kind of difficulty using @username.
 
 ### Levels
 
 We came up with this chart so you can gauge the issue's difficulty and pick ones that fit within your skillset:
-| Points              | Contribution                                                                |
-|---------------------|-----------------------------------------------------------------------------|
-| `priority: low`:    | Addition of new links/categories or doing any small task (e.g fixing typos) |
-| `priority: medium`: | Modifying an existing feature                                               |
-| `priority: high`:   | Making completely new feature                                               |
+
+| Points	| Contribution
+|---------|------------------------------------------------------------------------------------|
+| `priority`: low:	Addition of new links/categories or doing any small task (e.g fixing typos)|
+| `priority`: medium:	Modifying an existing feature                                            |
+| `priority`: high:	Making completely new feature                                              | 
+
 
 ## 🙏 Thanks to all Contributors
 Thanks a lot for spending your time in helping Django Reacall Server grow. Thanks a lot! ❤️
