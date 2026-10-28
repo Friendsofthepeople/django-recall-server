@@ -1,7 +1,6 @@
-
 services:
   db:
-    image: postgres:13
+    image: postgres:14  # Updated to Postgres 14
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
@@ -9,15 +8,23 @@ services:
     volumes:
       - npgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5435:5432"     # Used 5435 because I have a db  running locally on 5432
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:9000
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "9000:9000" # Used 9000 because I have something running locally on 8000
+    environment:
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=db        # <-- This explicitly forces Django away from 'localhost'
+      - DATABASE_PORT=5432      # <-- This explicitly forces Django away from your host port
+      - DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}
+
     depends_on:
       - db
 
