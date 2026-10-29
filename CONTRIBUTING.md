@@ -65,9 +65,23 @@ Follow these steps to setup the project on your local machine:
    ```
 
 7. Run database migrations inside the active application cluster:
-   ```sh
-   docker compose exec web python manage.py migrate
+  ```sh
+  docker compose exec web python manage.py makemigrations
+  docker compose exec web python manage.py migrate
    ```
+- If after migrating you still dont see all the tables, you may need to migrate the apps one by one
+  ```sh
+  docker compose exec web python manage.py makemigrations mps
+  docker compose exec web python manage.py migrate mps
+  ```
+--------------
+##### Seed the mps table
+- moved the mps_data into `/management` and wrote a script in `/management/commands` to seed the mps table with data
+- Make sure you add `recall_server` in `[INSTALLED_APPS]`
+- Then run this to seed the table:
+  ```sh
+  docker exec web python manage.py seed_mps
+  ```
 
 8. Create your initial local administrator account:
    ```sh

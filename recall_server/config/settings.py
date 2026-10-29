@@ -22,6 +22,8 @@ CSRF_TRUSTED_ORIGINS = ["https://localhost:8000", "https://127.0.0.1:8000", "htt
 
 INSTALLED_APPS = [
     # Local apps goes here
+    # 
+    "recall_server",
     "recall_server.common",
     "recall_server.users",
     "recall_server.polling_station",
